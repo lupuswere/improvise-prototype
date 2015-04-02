@@ -13,6 +13,7 @@ var bodyParser = require("body-parser");
 var errorHandler = require("errorhandler");
 var cookieParser = require('cookie-parser');
 var secr = "molly";
+app.use(cookieParser("secret"));
 mongoose.connect('mongodb://user:password@ds059651.mongolab.com:59651/improvise');
 //MongoDB
 var Users = new Schema({
@@ -100,6 +101,10 @@ app.get("/", function (req, res) {
     res.sendfile("views/index.html");
 });
 
+app.get("/landing", function (req, res) {
+    res.sendfile("views/landing.html");
+});
+
 app.get("/channel/sports", function (req, res) {
     res.sendfile("views/channels/channel_one.html");
 });
@@ -121,6 +126,9 @@ app.post('/signup', function(req, res) {
         if (err) {
             res.send(err);
         }
+        var secretUserInfo = jwt.encode(user, secr);
+        res.cookie('improvise', secretUserInfo, {maxAge: 1000 * 60 * 30});
+        res.json(user);
     });
 
 });
@@ -139,16 +147,22 @@ app.get("/login/:username", function (req, res) {
         if (err) {
             console.log("Error: " + err);
         }
+        var secretUserInfo = jwt.encode(user, secr);
+        res.cookie("improvise", secretUserInfo, {maxAge: 1000 * 60 * 30});
         res.json(user);
     });
 });
 
 
-app.get("/login/check", function (req, res) {
-    req.cookies.improvise = jwt.decode(req.cookies.improvise, secr);
-    res.json(req.cookies);
+app.get("/checklogin", function (req, res) {
+    var userInfo = jwt.decode(req.cookies.improvise, secr);
+    res.json(userInfo);
 });
 
+app.get("/logout", function (req, res) {
+    res.cookie("improvise", "no", {maxAge: 1});
+    res.redirect("/");
+});
 server.listen(app.get("port"), function () {
     console.log("Listening on port " + app.get("port"));
 });

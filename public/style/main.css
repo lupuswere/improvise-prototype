@@ -15,6 +15,17 @@ header {
     color: white;
 }
 
+.banner-right {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    margin-right:15px;
+    font-family: 'Helvetica', cursive;
+    font-size: 20px;
+    color: white;
+    float:right;
+}
+
 .placeHolder {
     height: 60px;
     background-color: white;
@@ -52,6 +63,12 @@ body {
         margin-left: 5%;
         margin-right: 5%;
     }
+    .banner-right {
+        font-family: 'Helvetica', cursive;
+        font-size: 10px;
+        color: white;
+        float:right;
+    }
 }
 
 /* iPhone 5 */
@@ -60,6 +77,12 @@ body {
         margin-top: 30px;
         margin-left: 5%;
         margin-right: 5%;
+    }
+    .banner-right {
+        font-family: 'Helvetica', cursive;
+        font-size: 10px;
+        color: white;
+        float:right;
     }
 }
 
@@ -70,6 +93,12 @@ body {
         margin-left: 5%;
         margin-right: 5%;
     }
+    .banner-right {
+        font-family: 'Helvetica', cursive;
+        font-size: 10px;
+        color: white;
+        float:right;
+    }
 }
 
 /* iPhone 6 Plus */
@@ -78,6 +107,12 @@ body {
         margin-top: 30px;
         margin-left: 5%;
         margin-right: 5%;
+    }
+    .banner-right {
+        font-family: 'Helvetica', cursive;
+        font-size: 10px;
+        color: white;
+        float:right;
     }
 
 }

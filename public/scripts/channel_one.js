@@ -4,6 +4,21 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http) {
     $scope.messages = [];
     $scope.myName = false;
     $scope.preMessage = {};
+    $scope.user = {};
+    $http.get("/checklogin")
+        .success(function (data) {
+            if (data) {
+                $scope.user = data;
+                $scope.preMessage.text = $scope.user.username;
+                $scope.sendMessage();
+            } else {
+                $window.location.href = "/";
+            }
+        })
+        .error(function (data) {
+            $window.location.href = "/";
+            console.log("Error: " + data);
+        });
     //Build Web Socket connection
     socket = io.connect("http://localhost"); //Local Development
     //socket = io.connect("http://improvise.jit.su");

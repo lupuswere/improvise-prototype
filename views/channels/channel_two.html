@@ -20,7 +20,9 @@
 <body ng-controller="mainCtrl">
 <header>
     <div class="banner">
-        <a ng-href="http://improvise.jit.su/">Improvise</a>
+        Improvise
+        <span class="banner-right"><a href="/logout">Log out</a></span>
+        <span class="banner-right">{{user.username}}</span>
     </div>
 </header>
 <div class="placeHolder">

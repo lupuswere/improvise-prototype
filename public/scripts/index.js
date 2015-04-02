@@ -1,8 +1,19 @@
 var app = angular.module("index", []);
-app.controller("mainCtrl", function mainCtrl ($scope, $http) {
+app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.wrongInfo = false;
     $scope.input = {};
     $scope.alreadyInfo = false;
+
+    $http.get("/checklogin")
+        .success(function (data) {
+            if(data) {
+                $window.location.href = "/landing";
+            }
+        })
+        .error(function (data) {
+            console.log("Error: " + data);
+        });
+
     $scope.login = function (input) {
         $scope.wrongInfo = false;
         $scope.alreadyInfo = false;
@@ -10,11 +21,13 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http) {
             .success(function (data) {
                 if (data && data.username) {
                     if(data.password === input.password) {
-                        //TODO: Lead to landing page and save cookies
                         console.log("success!");
+                        $window.location.href = '/landing';
                     } else {
                         $scope.wrongInfo = true;
                     }
+                } else {
+                    $scope.wrongInfo = true;
                 }
             })
             .error(function (data) {
@@ -30,8 +43,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http) {
                 if (!(data && data.username)) {
                     $http.post("/signup", $scope.input)
                         .success(function (data) {
-                            //TODO: Lead to landing page and save cookies
-                            console.log("success!");
+                            $window.location.href = '/landing';
                         })
                         .error(function (data) {
                             console.log("Error: " + data);

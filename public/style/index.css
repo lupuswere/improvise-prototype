@@ -12,7 +12,7 @@ header {
     margin-left: 15px;
     font-family: 'Gloria Hallelujah', cursive;
     font-size: 35px;
-    color: white;
+    color: purple;
 }
 
 .placeHolder {
@@ -27,8 +27,22 @@ header {
     margin-right: 30%;
 }
 
+.jumbo-index-page {
+    background-color: purple;
+    color: white;
+    font-family: 'Gloria Hallelujah',cursive;
+    margin-left: 20%;
+    margin-right:20%;
+}
+
+.btn-group-index-page {
+    margin-top: 10%;
+    text-align: center;
+    margin-left: 20%;
+    margin-right:25%;
+}
 body {
-    background-color: white;
+    background-color: purple;
 }
 
 #content {

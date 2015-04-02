@@ -2,13 +2,32 @@
 var express = require("express");
 var path = require("path");
 var app = express();
+var mongoose = require('mongoose');
 var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
 var methodOverride = require("method-override");
+var Schema = mongoose.Schema;
 var morgan = require("morgan");
+var jwt = require('jwt-simple');
 var bodyParser = require("body-parser");
 var errorHandler = require("errorhandler");
-
+var cookieParser = require('cookie-parser');
+var secr = "molly";
+mongoose.connect('mongodb://user:password@ds059651.mongolab.com:59651/improvise');
+//MongoDB
+var Users = new Schema({
+    username : String,
+    password: String
+});
+mongoose.model("Users", Users);
+var Invitations = new Schema({
+    username: String,
+    text: String,
+    partner: Array
+});
+mongoose.model("Invitations", Invitations);
+var User = mongoose.model("Users");
+var Invitation = mongoose.model("Invitations");
 //Set up log level
 io.set("log level", 1);
 
@@ -77,9 +96,8 @@ if ("development" === app.get("env")) {
     app.use(errorHandler());
 }
 
-//The html file of Web Socket
 app.get("/", function (req, res) {
-    res.sendfile("views/landing.html");
+    res.sendfile("views/index.html");
 });
 
 app.get("/channel/sports", function (req, res) {
@@ -92,6 +110,43 @@ app.get("/channel/dinner", function (req, res) {
 
 app.get("/channel/movie", function (req, res) {
     res.sendfile("views/channels/channel_three.html");
+});
+
+app.post('/signup', function(req, res) {
+    User.create({
+        username : req.body.username,
+        password : req.body.password,
+        done : false
+    }, function(err, user) {
+        if (err) {
+            res.send(err);
+        }
+    });
+
+});
+
+app.get("/checkuser/:username", function (req, res) {
+    User.findOne( { "username" : req.params.username }, "username", function (err, user) {
+        if (err) {
+            console.log("Error: " + err);
+        }
+        res.json(user);
+    });
+});
+
+app.get("/login/:username", function (req, res) {
+    User.findOne( { "username" : req.params.username }, "username password", function (err, user) {
+        if (err) {
+            console.log("Error: " + err);
+        }
+        res.json(user);
+    });
+});
+
+
+app.get("/login/check", function (req, res) {
+    req.cookies.improvise = jwt.decode(req.cookies.improvise, secr);
+    res.json(req.cookies);
 });
 
 server.listen(app.get("port"), function () {

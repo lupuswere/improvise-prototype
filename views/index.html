@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="index">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport"
+          content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="vendors/bootstrap-3.3.4-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style/index.css">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <title>Improvise</title>
+    <script src="vendors/angular.js"></script>
+    <script src="scripts/index.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+<header>
+    <div class="banner">
+
+    </div>
+</header>
+<div class="placeHolder">
+
+</div>
+<div class="contentArea">
+    <div class="jumbo-index-page jumbotron">
+        <h1>Improvise</h1>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">@</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1"
+               ng-model="input.username">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">@</span>
+        <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1"
+               ng-model="input.password">
+    </div>
+    <div class="alert alert-danger" role="alert" ng-if="wrongInfo">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        Wrong user name or password
+    </div>
+    <div class="alert alert-danger" role="alert" ng-if="alreadyInfo">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        User name already exists
+    </div>
+    <div class="btn-group-index-page">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" ng-click="login(input)">Log in</button>
+            <button type="button" class="btn btn-default" ng-click="signup(input)">Sign up</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

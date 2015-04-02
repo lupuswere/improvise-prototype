@@ -12,6 +12,7 @@
     "jwt-simple": "*",
     "method-override": "*",
     "morgan": "*",
+    "mongoose": "~3.6.2",
     "socket.io": "*",
     "angularjs-scroll-glue": "*"
   },

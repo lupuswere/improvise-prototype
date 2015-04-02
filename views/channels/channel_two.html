@@ -20,21 +20,12 @@
 <body ng-controller="mainCtrl">
 <header>
     <div class="banner">
-        Improvise
+        <a ng-href="http://improvise.jit.su/">Improvise</a>
     </div>
 </header>
 <div class="placeHolder">
 
 </div>
-<div class="contentArea">
-    <div class="list-group" id="content" scroll-glue="glued">
-        <p class="list-group-item" ng-repeat="message in messages track by $index">{{message}}</p>
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon">{{status}}</span>
-        <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" ng-if="!myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
-        <input type="text" class="form-control" placeholder="Message here..." aria-describedby="basic-addon1" ng-if="myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
-    </div>
-</div>
+Coming Soon...
 </body>
 </html>

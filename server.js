@@ -50,7 +50,7 @@ io.on("connection", function (socket) {
         }
     });
 
-    socket.on("disconnect1", function () {
+    socket.on("disconnect", function () {
         var obj = {
             time: getTime(),
             color: client.color,

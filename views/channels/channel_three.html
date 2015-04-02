@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="channelOne">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport"
+          content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-3.3.4-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../style/main.css">
+    <link rel="apple-touch-icon" href="../images/icon.png">
+    <title>Improvise</title>
+    <script src="../vendors/angular.js"></script>
+    <script src="../vendors/socket.io.js"></script>
+    <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.4/src/scrollglue.js"></script>
+    <script src="../scripts/channel_three.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+<header>
+    <div class="banner">
+        Improvise
+    </div>
+</header>
+<div class="placeHolder">
+
+</div>
+<div class="contentArea">
+    <div class="list-group" id="content" scroll-glue="glued">
+        <p class="list-group-item" ng-repeat="message in messages track by $index">{{message}}</p>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">{{status}}</span>
+        <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" ng-if="!myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
+        <input type="text" class="form-control" placeholder="Message here..." aria-describedby="basic-addon1" ng-if="myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
+    </div>
+</div>
+</body>
+</html>

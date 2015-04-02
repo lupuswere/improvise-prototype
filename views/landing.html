@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="landingPage">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport"
+          content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="vendors/bootstrap-3.3.4-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style/landing.css">
+    <link rel="apple-touch-icon" href="images/icon.png">
+    <title>Improvise</title>
+    <script src="vendors/angular.js"></script>
+    <script src="scripts/land.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+<header>
+    <div class="banner">
+        Improvise
+    </div>
+</header>
+<div class="placeHolder">
+
+</div>
+<div class="contentArea">
+    <div class="list-group" id="content">
+        <p class="list-group-item" ng-repeat="channel in channels track by $index">
+            <a ng-href="http://improvise.jit.su/channel/{{channel}}">{{channel}}</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

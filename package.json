@@ -1,0 +1,25 @@
+{
+  "name": "Improvise-Prototype",
+  "version": "0.0.0",
+  "description": "Improvise Prototype",
+  "main": "server.js",
+  "author": "Lifei Li, Menglin He, Haoyu Liu, Weining Gu",
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "errorhandler": "*",
+    "express": "*",
+    "jwt-simple": "*",
+    "method-override": "*",
+    "morgan": "*",
+    "socket.io": "*",
+    "angularjs-scroll-glue": "*"
+  },
+  "subdomain": "improvise",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

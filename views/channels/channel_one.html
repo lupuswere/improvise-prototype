@@ -10,16 +10,19 @@
           content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
     <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-3.3.4-dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../style/main.css">
+    <link rel="stylesheet" type="text/css" href="../vendors/ratchet-2.0.2/dist/css/ratchet.css">
     <link rel="apple-touch-icon" href="../images/icon.png">
     <title>Improvise</title>
     <script src="../vendors/angular.js"></script>
     <script src="../vendors/socket.io.js"></script>
     <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.4/src/scrollglue.js"></script>
     <script src="../scripts/channel_one.js"></script>
+    <script src="../vendors/ratchet-2.0.2/js/push.js"></script>
 </head>
 <body ng-controller="mainCtrl">
 <header>
     <div class="banner">
+        <span class="icon icon-left-nav" ng-click="back()"></span>
         Improvise
         <span class="banner-right"><a href="/logout">Log out</a></span>
         <span class="banner-right">{{user.username}}</span>
@@ -38,5 +41,20 @@
         <input type="text" class="form-control" placeholder="Message here..." aria-describedby="basic-addon1" ng-if="myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
     </div>
 </div>
+
+<nav class="bar bar-tab">
+    <a class="tab-item active" href="#" data-transition="fade">
+        <span class="icon icon-home"></span>
+        <span class="tab-label">Channels</span>
+    </a>
+    <a class="tab-item" href="#">
+        <span class="icon icon-star-filled"></span>
+        <span class="tab-label">Invitations</span>
+    </a>
+    <a class="tab-item" href="#">
+        <span class="icon icon-person"></span>
+        <span class="tab-label">Profile</span>
+    </a>
+</nav>
 </body>
 </html>

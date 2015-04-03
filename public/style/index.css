@@ -69,7 +69,7 @@ body {
 }
 
 /* iPhone 6 */
-@media screen and (device-aspect-ratio: 667/375) {
+@media screen and (device-aspect-ratio: 375/667) {
     .contentArea {
         margin-top: 30px;
         margin-left: 5%;
@@ -78,7 +78,7 @@ body {
 }
 
 /* iPhone 6 Plus */
-@media screen and (device-aspect-ratio: 16/9) {
+@media screen and (device-aspect-ratio: 9/16) {
     .contentArea {
         margin-top: 30px;
         margin-left: 5%;

@@ -1,5 +1,5 @@
 var app = angular.module("channelOne", ["luegg.directives"]);
-app.controller("mainCtrl", function mainCtrl ($scope, $http) {
+app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.status = "";
     $scope.messages = [];
     $scope.myName = false;
@@ -66,5 +66,9 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http) {
             $scope.sendMessage();
             $scope.apply();
         }
+    };
+
+    $scope.back = function () {
+        $window.location.href = "/landing";
     };
 });

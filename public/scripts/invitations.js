@@ -1,7 +1,5 @@
-var app = angular.module("landingPage", []);
-app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
-    //$scope.channels = ["sports", "dinner", "movie"];
-    $scope.channels = ["sports"];
+var app = angular.module("invitationsPage", []);
+app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.user = {};
     $http.get("/checklogin")
         .success(function (data) {
@@ -18,8 +16,8 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
     $scope.toChannel = function (channel) {
         $window.location.href = "/channel/" + channel;
     };
-    $scope.invitations = function () {
-        $window.location.href = "/invitations";
+    $scope.landing = function () {
+        $window.location.href = "/landing";
     };
     $scope.profile = function () {
         $window.location.href = "/profile";

@@ -1,5 +1,5 @@
 var app = angular.module("channelOne", ["luegg.directives"]);
-app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
+app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
     $scope.status = "";
     $scope.messages = [];
     $scope.myName = false;
@@ -30,11 +30,16 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     //Listen to system
     socket.on("system", function (json) {
         if (json.type === "welcome") {
+            var newMsg = {};
             if ($scope.myName === json.text) {
                 $scope.status = $scope.myName + ": ";
-                $scope.messages.push(json.text + " joined chat.");
+                newMsg["author"] = json.text;
+                newMsg["text"] = "joined channel Sports.";
+                $scope.messages.push(newMsg);
             } else if (json.type === "disconnect") {
-                $scope.messages.push(json.text + " left chat.");
+                newMsg["author"] = json.text;
+                newMsg["text"] = "left channel Sports.";
+                $scope.messages.push(newMsg);
             }
             $scope.$apply();
         }
@@ -42,14 +47,16 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
 
     //Listen to message event
     socket.on("message", function (json) {
-        $scope.messages.push(json.author + ": " + json.text);
+        //$scope.messages.push(json.author + ": " + json.text);
+        $scope.messages.push(json);
+        //console.log(json);
         $scope.$apply();
     });
 
     //Submit message via send button
     $scope.sendMessage = function () {
         var msg = $scope.preMessage.text;
-        if(msg) {
+        if (msg) {
             socket.send(msg);
             $scope.preMessage = {};
             if ($scope.myName === false) {
@@ -71,4 +78,20 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.back = function () {
         $window.location.href = "/landing";
     };
+
+    $scope.invitations = function () {
+        $window.location.href = "/invitations";
+    };
+
+    $scope.profile = function () {
+        $window.location.href = "/profile";
+    };
+
+    $scope.accept = function (message) {
+        var msg = "ACCEPTED!";
+        message.status = false;
+        socket.send(msg);
+        $scope.$apply();
+    };
+
 });

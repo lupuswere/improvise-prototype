@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport"
@@ -33,26 +34,36 @@
 </div>
 <div class="contentArea">
     <div class="list-group" id="content" scroll-glue="glued">
-        <p class="list-group-item" ng-repeat="message in messages track by $index">{{message}}</p>
+        <p class="list-group-item" ng-repeat="message in messages track by $index">
+            {{message.author}} : {{message.text}}
+            <span class="badge" ng-if="(message.author !== user.username) && (message.msgType === 'invitation') && (message.status)" ng-click="accept(message)">
+                Accept
+            </span>
+            <span class="badge" ng-if="(message.author !== user.username) && (message.msgType === 'invitation') && (!message.status)">
+                Accepted
+            </span>
+        </p>
     </div>
     <div class="input-group">
         <span class="input-group-addon">{{status}}</span>
-        <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" ng-if="!myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
-        <input type="text" class="form-control" placeholder="Message here..." aria-describedby="basic-addon1" ng-if="myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
+        <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" ng-if="!myName"
+               ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
+        <input type="text" class="form-control" placeholder="Message here..." aria-describedby="basic-addon1"
+               ng-if="myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
     </div>
 </div>
 
 <nav class="bar bar-tab">
-    <a class="tab-item active" href="#" data-transition="fade">
+    <a class="tab-item active" href="#">
         <span class="icon icon-home"></span>
         <span class="tab-label">Channels</span>
     </a>
     <a class="tab-item" href="#">
-        <span class="icon icon-star-filled"></span>
+        <span class="icon icon-star-filled" ng-click="invitations()"></span>
         <span class="tab-label">Invitations</span>
     </a>
     <a class="tab-item" href="#">
-        <span class="icon icon-person"></span>
+        <span class="icon icon-person" ng-click="profile()"></span>
         <span class="tab-label">Profile</span>
     </a>
 </nav>

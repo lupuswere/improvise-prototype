@@ -17,7 +17,7 @@ app.use(cookieParser("secret"));
 mongoose.connect('mongodb://user:password@ds059651.mongolab.com:59651/improvise');
 //MongoDB
 var Users = new Schema({
-    username : String,
+    username: String,
     password: String
 });
 mongoose.model("Users", Users);
@@ -62,7 +62,15 @@ io.on("connection", function (socket) {
         } else {
             obj["text"] = msg;
             obj["author"] = client.name;
+            //console.log(client.name);//test
+            //console.log(msg);//test
             obj["type"] = "message";
+            if (obj["text"] === "ACCEPTED!") {
+                obj["msgType"] = "acceptance";
+            } else {
+                obj["msgType"] = "invitation";
+                obj["status"] = true;
+            }
             //console.log(client.name + " say: " + msg);
             socket.emit("message", obj);
             //Broadcast to other users
@@ -105,6 +113,14 @@ app.get("/landing", function (req, res) {
     res.sendfile("views/landing.html");
 });
 
+app.get("/invitations", function (req, res) {
+    res.sendfile("views/invitations.html");
+});
+
+app.get("/profile", function (req, res) {
+    res.sendfile("views/profile.html");
+});
+
 app.get("/channel/sports", function (req, res) {
     res.sendfile("views/channels/channel_one.html");
 });
@@ -117,12 +133,12 @@ app.get("/channel/movie", function (req, res) {
     res.sendfile("views/channels/channel_three.html");
 });
 
-app.post('/signup', function(req, res) {
+app.post('/signup', function (req, res) {
     User.create({
-        username : req.body.username,
-        password : req.body.password,
-        done : false
-    }, function(err, user) {
+        username: req.body.username,
+        password: req.body.password,
+        done: false
+    }, function (err, user) {
         if (err) {
             res.send(err);
         }
@@ -134,7 +150,7 @@ app.post('/signup', function(req, res) {
 });
 
 app.get("/checkuser/:username", function (req, res) {
-    User.findOne( { "username" : req.params.username }, "username", function (err, user) {
+    User.findOne({"username": req.params.username}, "username", function (err, user) {
         if (err) {
             console.log("Error: " + err);
         }
@@ -143,7 +159,7 @@ app.get("/checkuser/:username", function (req, res) {
 });
 
 app.get("/login/:username", function (req, res) {
-    User.findOne( { "username" : req.params.username }, "username password", function (err, user) {
+    User.findOne({"username": req.params.username}, "username password", function (err, user) {
         if (err) {
             console.log("Error: " + err);
         }

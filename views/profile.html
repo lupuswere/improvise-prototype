@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="landingPage">
+<html ng-app="profilePage">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="images/icon.png">
     <title>Improvise</title>
     <script src="vendors/angular.js"></script>
-    <script src="scripts/land.js"></script>
+    <script src="scripts/profile.js"></script>
 </head>
 <body ng-controller="mainCtrl">
 <header>
@@ -29,24 +29,20 @@
 
 </div>
 <div class="contentArea">
-    <div class="list-group" id="content">
-        <div class="list-group-item" ng-repeat="channel in channels track by $index" ng-click="toChannel(channel)">
-            {{channel}}
-        </div>
-    </div>
+
 </div>
 
 <nav class="bar bar-tab">
-    <a class="tab-item active" href="#">
-        <span class="icon icon-home"></span>
+    <a class="tab-item" href="#">
+        <span class="icon icon-home" ng-click="landing()"></span>
         <span class="tab-label">Channels</span>
     </a>
     <a class="tab-item" href="#">
         <span class="icon icon-star-filled" ng-click="invitations()"></span>
         <span class="tab-label">Invitations</span>
     </a>
-    <a class="tab-item" href="#">
-        <span class="icon icon-person" ng-click="profile()"></span>
+    <a class="tab-item active" href="#">
+        <span class="icon icon-person"></span>
         <span class="tab-label">Profile</span>
     </a>
 </nav>

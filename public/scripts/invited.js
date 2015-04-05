@@ -53,4 +53,7 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
     $scope.profile = function () {
         $window.location.href = "/profile";
     };
+    $scope.logout = function () {
+        $window.location.href = "/logout";
+    };
 });

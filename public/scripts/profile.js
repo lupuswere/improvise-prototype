@@ -25,4 +25,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.landing = function () {
         $window.location.href = "/landing";
     };
+    $scope.logout = function () {
+        $window.location.href = "/logout";
+    };
 });

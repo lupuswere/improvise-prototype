@@ -108,6 +108,9 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
         $window.location.href = "/profile";
     };
 
+    $scope.logout = function () {
+        $window.location.href = "/logout";
+    };
     $scope.accept = function (message) {
         var msg = "ACCEPTED! " + message.author;
         message.status = false;

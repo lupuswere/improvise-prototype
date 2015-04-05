@@ -52,6 +52,9 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
         $scope.tmpSave();
         $window.location.href = "/profile";
     };
+    $scope.logout = function () {
+        $window.location.href = "/logout";
+    };
     $scope.tmpSave = function () {
         $http.post("/tmpsave", $scope.msg)
             .success(function (data) {

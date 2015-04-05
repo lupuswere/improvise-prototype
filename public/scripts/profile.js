@@ -16,8 +16,11 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.toChannel = function (channel) {
         $window.location.href = "/channel/" + channel;
     };
-    $scope.invitations = function () {
-        $window.location.href = "/invitations";
+    $scope.invited = function () {
+        $window.location.href = "/invited";
+    };
+    $scope.accepted = function () {
+        $window.location.href = "/accepted";
     };
     $scope.landing = function () {
         $window.location.href = "/landing";

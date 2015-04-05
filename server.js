@@ -13,6 +13,8 @@ var bodyParser = require("body-parser");
 var errorHandler = require("errorhandler");
 var cookieParser = require('cookie-parser');
 var secr = "molly";
+var secr2 = "menglin";
+var secrForPassword = "trailside";
 app.use(cookieParser("secret"));
 mongoose.connect('mongodb://user:password@ds059651.mongolab.com:59651/improvise');
 //MongoDB
@@ -22,9 +24,9 @@ var Users = new Schema({
 });
 mongoose.model("Users", Users);
 var Invitations = new Schema({
-    username: String,
-    text: String,
-    partner: Array
+    sender: String,
+    content: String,
+    receiver: String
 });
 mongoose.model("Invitations", Invitations);
 var User = mongoose.model("Users");
@@ -65,8 +67,11 @@ io.on("connection", function (socket) {
             //console.log(client.name);//test
             //console.log(msg);//test
             obj["type"] = "message";
-            if (obj["text"] === "ACCEPTED!") {
+            var acpt = obj["text"].split(/\s+/).map(String);
+            //console.log(acpt);//test
+            if (acpt[0] === "ACCEPTED!") {
                 obj["msgType"] = "acceptance";
+                obj["invitationSender"] = acpt[1];
             } else {
                 obj["msgType"] = "invitation";
                 obj["status"] = true;
@@ -113,8 +118,12 @@ app.get("/landing", function (req, res) {
     res.sendfile("views/landing.html");
 });
 
-app.get("/invitations", function (req, res) {
-    res.sendfile("views/invitations.html");
+app.get("/invited", function (req, res) {
+    res.sendfile("views/invited.html");
+});
+
+app.get("/accepted", function (req, res) {
+    res.sendfile("views/accepted.html");
 });
 
 app.get("/profile", function (req, res) {
@@ -133,6 +142,37 @@ app.get("/channel/movie", function (req, res) {
     res.sendfile("views/channels/channel_three.html");
 });
 
+app.get("/acceptedInvitations/:username", function (req, res) {
+    Invitation.find({"receiver": req.params.username}, "sender content receiver", function (err, invitation) {
+        if (err) {
+            console.log("Error: " + err);
+        }
+        res.json(invitation);
+    });
+});
+
+app.get("/invitedInvitations/:username", function (req, res) {
+    Invitation.find({"sender": req.params.username}, "sender content receiver", function (err, invitation) {
+        if (err) {
+            console.log("Error: " + err);
+        }
+        res.json(invitation);
+    });
+});
+
+app.post("/invitations", function (req, res) {
+    Invitation.create({
+        sender: req.body.sender,
+        content: req.body.content,
+        receiver: req.body.receiver,
+        done: false
+    }, function (err) {
+        if (err) {
+            res.send(err);
+        }
+    });
+});
+
 app.post('/signup', function (req, res) {
     User.create({
         username: req.body.username,
@@ -147,6 +187,18 @@ app.post('/signup', function (req, res) {
         res.json(user);
     });
 
+});
+
+app.post("/tmpsave", function (req, res) {
+    var tmp = jwt.encode(req.body.msgList, secr2);
+    res.cookie("tmpImprovise", tmp, {maxAge: 1000 * 60 * 30});
+    res.json(tmp);
+});
+
+app.get("/tmpsave", function (req, res) {
+    var tmp = jwt.decode(req.cookies.tmpImprovise, secr2);
+    res.cookie("tmpImprovise", "no", {maxAge: 1});
+    res.json(tmp);
 });
 
 app.get("/checkuser/:username", function (req, res) {

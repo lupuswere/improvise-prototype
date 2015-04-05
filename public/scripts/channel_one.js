@@ -19,6 +19,15 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
             $window.location.href = "/";
             console.log("Error: " + data);
         });
+    $http.get("/tmpsave")
+        .success(function (data) {
+            if(data && data.length !== 0) {
+                $scope.messages = data;
+            }
+        })
+        .error(function (data) {
+            console.log("Error: " + data);
+        });
     //Build Web Socket connection
     socket = io.connect("http://localhost"); //Local Development
     //socket = io.connect("http://improvise.jit.su");
@@ -48,6 +57,14 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
     //Listen to message event
     socket.on("message", function (json) {
         //$scope.messages.push(json.author + ": " + json.text);
+        if (json.msgType === "acceptance") {
+            var tmpSend = json.text.split(/\s+/).map(String);
+            var role = "you";
+            if (tmpSend[1] !== $scope.user.username) {
+                role = tmpSend[1];
+            }
+            json.text = "accepted the invitation from " + role + ".";
+        }
         $scope.messages.push(json);
         //console.log(json);
         $scope.$apply();
@@ -79,8 +96,12 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
         $window.location.href = "/landing";
     };
 
-    $scope.invitations = function () {
-        $window.location.href = "/invitations";
+    $scope.invited = function () {
+        $window.location.href = "/invited";
+    };
+
+    $scope.accepted = function () {
+        $window.location.href = "/accepted";
     };
 
     $scope.profile = function () {
@@ -88,8 +109,22 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
     };
 
     $scope.accept = function (message) {
-        var msg = "ACCEPTED!";
+        var msg = "ACCEPTED! " + message.author;
         message.status = false;
+        var invPack = {
+            sender: message.author,
+            content: message.text,
+            receiver: $scope.user.username
+        };
+        $http.post("/invitations", invPack)
+            .success(function (data) {
+                //TODO
+            })
+            .error(function (data) {
+                if (data) {
+                    console.log("Error: " + data);
+                }
+            });
         socket.send(msg);
         $scope.$apply();
     };

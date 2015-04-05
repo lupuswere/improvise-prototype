@@ -10,11 +10,12 @@
     <meta name="viewport"
           content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
     <link rel="stylesheet" type="text/css" href="vendors/bootstrap-3.3.4-dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="style/landing.css">
+    <link rel="stylesheet" type="text/css" href="style/invited.css">
     <link rel="stylesheet" type="text/css" href="vendors/ratchet-2.0.2/dist/css/ratchet.css">
     <link rel="apple-touch-icon" href="images/icon.png">
     <title>Improvise</title>
     <script src="vendors/angular.js"></script>
+    <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.4/src/scrollglue.js"></script>
     <script src="scripts/invited.js"></script>
 </head>
 <body ng-controller="mainCtrl">
@@ -28,8 +29,15 @@
 <div class="placeHolder">
 
 </div>
-<div class="contentArea">
-
+<div class="contentArea invitations" scroll-glue="glued">
+    <div class="panel panel-default" ng-repeat="invitedInvitation in invitedInvitations track by $index">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{invitedInvitation[0].content}}</h3>
+        </div>
+        <div class="panel-body" ng-repeat="receive in invitedInvitation">
+            {{receive.receiver}}
+        </div>
+    </div>
 </div>
 
 <nav class="bar bar-tab">

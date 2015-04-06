@@ -16,7 +16,7 @@
     <title>Improvise</title>
     <script src="../vendors/angular.js"></script>
     <script src="../vendors/socket.io.js"></script>
-    <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.4/src/scrollglue.js"></script>
+    <script src="../vendors/scrollglue.js"></script>
     <script src="../scripts/channel_one.js"></script>
     <script src="../vendors/ratchet-2.0.2/js/push.js"></script>
 </head>
@@ -54,19 +54,19 @@
 </div>
 
 <nav class="bar bar-tab">
-    <div class="tab-item active" href="#">
+    <div class="tab-item active">
         <span class="icon icon-home"></span>
         <span class="tab-label">Channels</span>
     </div>
-    <div class="tab-item" href="#">
+    <div class="tab-item">
         <span class="icon icon-star-filled" ng-click="invited()"></span>
         <span class="tab-label">Invited</span>
     </div>
-    <div class="tab-item" href="#">
+    <div class="tab-item">
         <span class="icon icon-star-filled" ng-click="accepted()"></span>
         <span class="tab-label">Accepted</span>
     </div>
-    <div class="tab-item" href="#">
+    <div class="tab-item">
         <span class="icon icon-person" ng-click="profile()"></span>
         <span class="tab-label">Profile</span>
     </div>

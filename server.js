@@ -174,9 +174,10 @@ app.post("/invitations", function (req, res) {
 });
 
 app.post('/signup', function (req, res) {
+    var encodedPassword = jwt.encode(req.body.password, secrForPassword);
     User.create({
         username: req.body.username,
-        password: req.body.password,
+        password: encodedPassword,
         done: false
     }, function (err, user) {
         if (err) {
@@ -217,6 +218,7 @@ app.get("/login/:username", function (req, res) {
         }
         var secretUserInfo = jwt.encode(user, secr);
         res.cookie("improvise", secretUserInfo, {maxAge: 1000 * 60 * 30});
+        user.password = jwt.decode(user.password, secrForPassword);
         res.json(user);
     });
 });

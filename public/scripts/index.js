@@ -19,7 +19,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
         $scope.alreadyInfo = false;
         $http.get("/login/" + input.username)
             .success(function (data) {
-                if (data && data.username) {
+                if (data && data.username && data.password) {
                     if(data.password === input.password) {
                         console.log("success!");
                         $window.location.href = '/landing';

@@ -216,10 +216,18 @@ app.get("/login/:username", function (req, res) {
         if (err) {
             console.log("Error: " + err);
         }
-        var secretUserInfo = jwt.encode(user, secr);
-        res.cookie("improvise", secretUserInfo, {maxAge: 1000 * 60 * 30});
-        user.password = jwt.decode(user.password, secrForPassword);
-        res.json(user);
+        if (user) {
+            var secretUserInfo = jwt.encode(user, secr);
+            res.cookie("improvise", secretUserInfo, {maxAge: 1000 * 60 * 30});
+            user.password = jwt.decode(user.password, secrForPassword);
+            res.json(user);
+        } else {
+            user = {
+                username: req.params.username,
+            };
+            res.json(user);
+        }
+
     });
 });
 

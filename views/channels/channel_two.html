@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="channelTwo">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport"
+          content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-3.3.4-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../style/main.css">
+    <link rel="stylesheet" type="text/css" href="../vendors/ratchet-2.0.2/dist/css/ratchet.css">
+    <link rel="apple-touch-icon" href="../images/icon.png">
+    <title>Improvise</title>
+    <script src="../vendors/angular.js"></script>
+    <script src="../vendors/socket.io.js"></script>
+    <script src="../vendors/scrollglue.js"></script>
+    <script src="../scripts/channel_two.js"></script>
+    <script src="../vendors/ratchet-2.0.2/js/push.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+<header>
+    <div class="banner">
+        <span class="icon icon-left-nav" ng-click="back()"></span>
+        Improvise
+        <span class="banner-right" ng-click="logout()">Log out</span>
+        <span class="banner-right">{{user.username}}</span>
+    </div>
+</header>
+<div class="placeHolder">
+
+</div>
+<div class="contentArea">
+    <div class="list-group" id="content" scroll-glue="glued">
+        <p class="list-group-item" ng-repeat="message in messages track by $index">
+            {{message.author}} : {{message.text}}
+            <span class="badge" ng-if="(message.author !== user.username) && (message.msgType === 'invitation') && (message.status)" ng-click="accept(message)">
+                Accept
+            </span>
+            <span class="badge" ng-if="(message.author !== user.username) && (message.msgType === 'invitation') && (!message.status)">
+                Accepted
+            </span>
+        </p>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">{{status}}</span>
+        <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" ng-if="!myName"
+               ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
+        <input type="text" class="form-control" placeholder="Message here..." aria-describedby="basic-addon1"
+               ng-if="myName" ng-keypress="sendMessageByEnter($event)" ng-model="preMessage.text">
+    </div>
+</div>
+
+<nav class="bar bar-tab">
+    <div class="tab-item active">
+        <span class="icon icon-home"></span>
+        <span class="tab-label">Channels</span>
+    </div>
+    <div class="tab-item">
+        <span class="icon icon-star-filled" ng-click="invited()"></span>
+        <span class="tab-label">Invited</span>
+    </div>
+    <div class="tab-item">
+        <span class="icon icon-star-filled" ng-click="accepted()"></span>
+        <span class="tab-label">Accepted</span>
+    </div>
+    <div class="tab-item">
+        <span class="icon icon-person" ng-click="profile()"></span>
+        <span class="tab-label">Profile</span>
+    </div>
+</nav>
+</body>
+</html>

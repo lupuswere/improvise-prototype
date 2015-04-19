@@ -11,7 +11,7 @@ header {
     margin-bottom: 5px;
     margin-left: 15px;
     font-family: 'Gloria Hallelujah', cursive;
-    font-size: 35px;
+    font-size: 25px;
     color: white;
 }
 
@@ -60,6 +60,9 @@ body {
         color: white;
         float:right;
     }
+    .jumbotitle {
+        padding: 10px;
+    }
 }
 
 /* iPhone 5 */
@@ -74,6 +77,9 @@ body {
         font-size: 10px;
         color: white;
         float:right;
+    }
+    .jumbotitle {
+        padding: 10px;
     }
 }
 
@@ -90,6 +96,9 @@ body {
         color: white;
         float:right;
     }
+    .jumbotitle {
+        padding: 10px;
+    }
 }
 
 /* iPhone 6 Plus */
@@ -104,6 +113,9 @@ body {
         font-size: 10px;
         color: white;
         float:right;
+    }
+    .jumbotitle {
+        padding: 10px;
     }
 
 }

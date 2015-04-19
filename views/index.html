@@ -26,7 +26,7 @@
 
 </div>
 <div class="contentArea">
-    <div class="jumbo-index-page jumbotron">
+    <div class="jumbo-index-page jumbotron jumbotitle">
         <h1>Improvise</h1>
     </div>
     <div class="input-group">
@@ -48,7 +48,11 @@
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span>
         User name already exists
-    </div>
+    </div><div class="alert alert-danger" role="alert" ng-if="wrongLoginInfo">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    User name or password invalid
+</div>
     <div class="btn-group-index-page">
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default" ng-click="login(input)">Log in</button>

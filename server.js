@@ -55,8 +55,6 @@ io.on("connection", function (socket) {
             obj["text"] = client.name;
             obj["author"] = "System";
             obj["type"] = "welcome";
-            //console.log(client.name + " login");
-
             //Return the welcome message
             socket.emit("system", obj);
             //Broadcast the new user
@@ -64,11 +62,8 @@ io.on("connection", function (socket) {
         } else {
             obj["text"] = msg;
             obj["author"] = client.name;
-            //console.log(client.name);//test
-            //console.log(msg);//test
             obj["type"] = "message";
             var acpt = obj["text"].split(/\s+/).map(String);
-            //console.log(acpt);//test
             if (acpt[0] === "ACCEPTED!") {
                 obj["msgType"] = "acceptance";
                 obj["invitationSender"] = acpt[1];
@@ -76,7 +71,6 @@ io.on("connection", function (socket) {
                 obj["msgType"] = "invitation";
                 obj["status"] = true;
             }
-            //console.log(client.name + " say: " + msg);
             socket.emit("message", obj);
             //Broadcast to other users
             socket.broadcast.emit("message", obj);
@@ -94,7 +88,6 @@ io.on("connection", function (socket) {
 
         //Broadcast about the disconnection
         socket.broadcast.emit("system", obj);
-        //console.log(client.name + "Disconnect");
     });
 });
 

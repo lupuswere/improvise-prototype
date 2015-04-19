@@ -3,7 +3,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.wrongInfo = false;
     $scope.input = {};
     $scope.alreadyInfo = false;
-
+    $scope.wrongLoginInfo = false;
     $http.get("/checklogin")
         .success(function (data) {
             if(data) {
@@ -38,6 +38,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.signup = function (input) {
         $scope.wrongInfo = false;
         $scope.alreadyInfo = false;
+        $scope.wrongLoginInfo = false;
         $http.get("/checkuser/" + input.username)
             .success(function (data) {
                 if (!(data && data.username)) {
@@ -46,6 +47,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
                             $window.location.href = '/landing';
                         })
                         .error(function (data) {
+                            $scope.wrongLoginInfo = true;
                             console.log("Error: " + data);
                         });
                 } else {
@@ -53,6 +55,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
                 }
             })
             .error(function (data) {
+                $scope.wrongLoginInfo = true;
                 console.log("Error: " + data);
             });
     };

@@ -159,10 +159,11 @@ app.post("/invitations", function (req, res) {
         content: req.body.content,
         receiver: req.body.receiver,
         done: false
-    }, function (err) {
+    }, function (err, json) {
         if (err) {
             res.send(err);
         }
+        res.json(json);
     });
 });
 
@@ -216,7 +217,7 @@ app.get("/login/:username", function (req, res) {
             res.json(user);
         } else {
             user = {
-                username: req.params.username,
+                username: req.params.username
             };
             res.json(user);
         }

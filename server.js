@@ -29,8 +29,20 @@ var Invitations = new Schema({
     receiver: String
 });
 mongoose.model("Invitations", Invitations);
+var Profiles = new Schema({
+    username: String,
+    gender: String,
+    address: String,
+    city: String,
+    province: String,
+    country: String,
+    zipCode: String,
+    hobby: Array
+});
+mongoose.model("Profiles", Profiles);
 var User = mongoose.model("Users");
 var Invitation = mongoose.model("Invitations");
+var Profile = mongoose.model("Profiles");
 //Set up log level
 io.set("log level", 1);
 
@@ -187,6 +199,44 @@ app.delete("/invitedInvitations/:username", function (req, res) {
         }
     });
 });
+
+app.get("/profile/:username", function (req, res) {
+    Profile.find({
+        "username": req.params.username
+    }, "username gender address city province country zipCode hobby", function (err, profile) {
+        if (err) {
+            console.log("Error: " + err);
+        }
+        res.json(profile);
+    });
+});
+
+app.post("/profile/:username", function (req, res) {
+    Profile.create({
+        "username": req.params.username,
+        "gender": req.body.gender,
+        "address": req.body.address,
+        "city": req.body.city,
+        "province": req.body.province,
+        "country": req.body.country,
+        "zipCode": req.body.zipCode,
+        "hobby": req.body.hobby,
+        done: false
+    }, function (err, profile) {
+        if(err) {
+            console.log("Error: " + err);
+            res.json({res: false});
+        } else {
+            res.json({res: true});
+        }
+    });
+});
+
+//TODO
+app.put("/profile/:username", function (req, res) {
+
+});
+
 // APIs of user log in and sign up
 app.post('/signup', function (req, res) {
     var encodedPassword = jwt.encode(req.body.password, secrForPassword);

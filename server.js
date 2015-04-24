@@ -135,6 +135,7 @@ app.get("/channel/movie", function (req, res) {
     res.sendfile("views/channels/channel_three.html");
 });
 
+// REST APIs that operates on database
 app.get("/acceptedInvitations/:username", function (req, res) {
     Invitation.find({"receiver": req.params.username}, "sender content receiver", function (err, invitation) {
         if (err) {
@@ -167,6 +168,26 @@ app.post("/invitations", function (req, res) {
     });
 });
 
+app.delete("/acceptedInvitations/:username", function (req, res) {
+    Invitation.find({ "receiver" : req.params.username }).remove(function (err){
+        if(err) {
+            res.json({res: false});
+        } else {
+            res.json({ res: true });
+        }
+    });
+});
+
+app.delete("/invitedInvitations/:username", function (req, res) {
+    Invitation.find({ "sender" : req.params.username }).remove(function (err){
+        if(err) {
+            res.json({res: false});
+        } else {
+            res.json({ res: true });
+        }
+    });
+});
+// APIs of user log in and sign up
 app.post('/signup', function (req, res) {
     var encodedPassword = jwt.encode(req.body.password, secrForPassword);
     User.create({

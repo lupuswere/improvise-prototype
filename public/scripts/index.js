@@ -17,10 +17,10 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
     $scope.login = function (input) {
         $scope.wrongInfo = false;
         $scope.alreadyInfo = false;
-        $http.get("/login/" + input.username)
+        $http.post("/api/login/", input)
             .success(function (data) {
-                if (data && data.username && data.password) {
-                    if(data.password === input.password) {
+                if (data) {
+                    if(data.res) {
                         console.log("success!");
                         $window.location.href = '/landing';
                     } else {
@@ -32,6 +32,7 @@ app.controller("mainCtrl", function mainCtrl ($scope, $http, $window) {
             })
             .error(function (data) {
                 console.log("Error: " + data);
+                $scope.wrongInfo = true;
             });
     };
 

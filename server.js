@@ -225,6 +225,30 @@ app.get("/login/:username", function (req, res) {
     });
 });
 
+/**
+ * New API for log in
+ */
+
+app.post("/api/login", function (req, res) {
+    var decodedPassword = jwt.encode(req.body.password, secrForPassword);
+    User.findOne({"username": req.body.username}, "username password", function (err, user) {
+        if(err) {
+            console.log("Error: " + err);
+            res.json({ res: false });
+        }
+        if(user) {
+            if(decodedPassword === user.password) {
+                var secretUserInfo = jwt.encode(user, secr);
+                res.cookie("improvise", secretUserInfo, {maxAge: 1000 * 60 * 30});
+                res.json({ res: true });
+            } else {
+                res.json({ res: false });
+            }
+        } else {
+            res.json({ res: false });
+        }
+    });
+});
 
 app.get("/checklogin", function (req, res) {
     var userInfo = jwt.decode(req.cookies.improvise, secr);

@@ -37,7 +37,7 @@ var Profiles = new Schema({
     province: String,
     country: String,
     zipCode: String,
-    hobby: Array
+    hobby: String
 });
 mongoose.model("Profiles", Profiles);
 var User = mongoose.model("Users");
@@ -203,7 +203,7 @@ app.delete("/invitedInvitations/:username", function (req, res) {
 app.get("/profile/:username", function (req, res) {
     Profile.find({
         "username": req.params.username
-    }, "username gender address city province country zipCode hobby", function (err, profile) {
+    }, "_id username gender address city province country zipCode hobby", function (err, profile) {
         if (err) {
             console.log("Error: " + err);
         }
@@ -234,9 +234,35 @@ app.post("/profile/:username", function (req, res) {
 
 //TODO
 app.put("/profile/:username", function (req, res) {
-
+    Profile.update({ _id: req.body.id }, {
+        $set: {
+            "gender": req.body.gender,
+            "address": req.body.address,
+            "city": req.body.city,
+            "province": req.body.province,
+            "country": req.body.country,
+            "zipCode": req.body.zipCode,
+            "hobby": req.body.hobby
+        }},
+        function(err, profile) {
+            if(err) {
+                console.log("Error: " + err);
+            }
+            res.json(profile);
+        });
 });
 
+//Test API
+app.get("/api/test", function(req, res) {
+    User.find(function (err, user) {
+        if(err) {
+            console.log("Error: "+ err);
+        } else {
+            console.log(user);
+            res.json(user);
+        }
+    });
+});
 // APIs of user log in and sign up
 app.post('/signup', function (req, res) {
     var encodedPassword = jwt.encode(req.body.password, secrForPassword);

@@ -12,6 +12,7 @@ var jwt = require('jwt-simple');
 var bodyParser = require("body-parser");
 var errorHandler = require("errorhandler");
 var cookieParser = require('cookie-parser');
+var apn = require("apn");
 var secr = "molly";
 var secr2 = "menglin";
 var secrForPassword = "trailside";

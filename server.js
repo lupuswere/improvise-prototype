@@ -30,7 +30,7 @@ var options = {
 
 var apnConnection = new apn.Connection(options);
 note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-note.badge = 3;
+note.badge = 1;
 note.sound = "ping.aiff";
 note.alert = "\u2709 You have a new invitation!";
 note.payload = {'messageFrom': 'Improvise'};

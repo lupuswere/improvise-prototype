@@ -17,6 +17,26 @@ var secr = "molly";
 var secr2 = "menglin";
 var secrForPassword = "trailside";
 app.use(cookieParser("secret"));
+
+/* */
+var token = "de0981be3fa87efb7e5a67566f08554fd3c09cde5965be8a4d1508c7d48a12de";
+var myDevice = new apn.Device(token);
+var note = new apn.Notification();
+var options = {
+    "cert": __dirname + "/cert/cert.pem",
+    "key": __dirname + "/cert/key.pem",
+    "passphrase": "improvise"
+};
+
+var apnConnection = new apn.Connection(options);
+note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+note.badge = 3;
+note.sound = "ping.aiff";
+note.alert = "\u2709 You have a new invitation!";
+note.payload = {'messageFrom': 'Improvise'};
+
+//apnConnection.pushNotification(note, myDevice);
+/* */
 mongoose.connect('mongodb://user:password@ds059651.mongolab.com:59651/improvise');
 //MongoDB
 var Users = new Schema({
@@ -84,6 +104,7 @@ io.on("connection", function (socket) {
                 obj["msgType"] = "invitation";
                 obj["status"] = true;
             }
+            apnConnection.pushNotification(note, myDevice);//Test
             socket.emit("message", obj);
             //Broadcast to other users
             socket.broadcast.emit("message", obj);
@@ -357,6 +378,9 @@ app.get("/logout", function (req, res) {
     res.cookie("improvise", "no", {maxAge: 1});
     res.redirect("/");
 });
+
+
+
 server.listen(app.get("port"), function () {
     console.log("Listening on port " + app.get("port"));
 });

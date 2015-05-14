@@ -29,8 +29,9 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
             console.log("Error: " + data);
         });
     //Build Web Socket connection
-    socket = io.connect("http://localhost"); //Local Development
-    //socket = io.connect("http://improvise.jit.su");
+    //socket = io.connect("http://localhost"); //Local Development
+    //socket = io.connect("http://improvise.jit.su"); //original host
+    socket = io.connect("http://improvise-lupuswere.rhcloud.com");
     //Confirm connection
     socket.on("open", function () {
         $scope.status = "Name:";

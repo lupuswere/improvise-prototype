@@ -20,8 +20,9 @@ app.controller("mainCtrl", function mainCtrl($scope, $http, $window) {
             console.log("Error: " + data);
         });
     //Build Web Socket connection
-    socket = io.connect("http://localhost"); //Local Development
-    //socket = io.connect("http://improvise.jit.su");
+    //socket = io.connect("http://localhost"); //Local Development
+    //socket = io.connect("http://improvise.jit.su"); //original host
+    socket = io.connect("http://improvise-lupuswere.rhcloud.com");
     socket.on("message", function (json) {
         $scope.msgCount++;
         if (json.msgType === "acceptance") {

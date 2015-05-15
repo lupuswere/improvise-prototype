@@ -17,7 +17,7 @@
     "socket.io": "*",
     "angularjs-scroll-glue": "*"
   },
-  "subdomain": "improvise",
+  "subdomain": "improvite",
   "scripts": {
     "start": "node server.js"
   },

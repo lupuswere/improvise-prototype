@@ -1,4 +1,4 @@
-# Improvite - Prototype
+# Improvise - Prototype
 
 _This is the repository for the server side and web client side of Improvise._
 

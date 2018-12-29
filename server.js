@@ -37,7 +37,7 @@ note.payload = {'messageFrom': 'Improvise'};
 
 //apnConnection.pushNotification(note, myDevice);
 /* */
-mongoose.connect('mongodb://user:password@ds059651.mongolab.com:59651/improvise');
+mongoose.connect('link_here');
 //MongoDB
 var Users = new Schema({
     username: String,
